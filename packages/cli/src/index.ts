@@ -1,13 +1,39 @@
-import { strict as assert } from 'node:assert';
 import { Shotbit } from '@shotbit/core';
+import { parseArgs } from 'node:util';
+import { parseOptions } from './utils.js';
 
-const videoPath = process.argv[2];
-assert.ok(videoPath, 'video path is missing');
+const args = process.argv.slice(2, process.argv.length);
 
-const outputPath = process.argv[3];
-assert.ok(outputPath, 'output path is missing');
+const optionsSchema = {
+  input: {
+    type: 'string',
+    short: 'i',
+  },
+  output: {
+    type: 'string',
+    short: 'o',
+  },
+  similarityTreshold: {
+    type: 'string',
+  },
+  minLength: {
+    type: 'string',
+  },
+} as const;
 
-const shotbit = new Shotbit({ videoPath, outputPath });
+const options = parseArgs({
+  args,
+  optionsSchema,
+}).values;
+
+const parsedOptions = parseOptions(options);
+
+const shotbit = new Shotbit({
+  videoPath: parsedOptions.input,
+  outputPath: parsedOptions.output,
+  similarityTreshold: parsedOptions.similarityTreshold,
+  minLength: parsedOptions.minLength,
+});
 
 console.log('generating shots...');
 
