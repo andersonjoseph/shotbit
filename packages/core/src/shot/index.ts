@@ -13,8 +13,8 @@ export class Shot {
     );
   }
 
-  isLargeEnough(): boolean {
-    return Math.abs(this.startFrame.number - this.endFrame.number) >= 6;
+  isLargeEnough(minLength = 6): boolean {
+    return Math.abs(this.startFrame.number - this.endFrame.number) >= minLength;
   }
 
   isContinuationOf(previousShot: Shot): boolean {

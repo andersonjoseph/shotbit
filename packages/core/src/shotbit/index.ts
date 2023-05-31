@@ -1,12 +1,8 @@
 import { strict as assert } from 'node:assert';
 import { Frame } from '../frame/index.js';
 import { Shot } from '../shot/index.js';
+import { ShotbitOptions } from './types.js';
 import { getFramePaths } from './utils/index.js';
-
-type ShotbitOptions = {
-  videoPath: string;
-  outputPath: string;
-};
 
 export class Shotbit {
   constructor(private readonly options: ShotbitOptions) {}
@@ -27,12 +23,13 @@ export class Shotbit {
 
       const frameIsInTheSameShot = await referenceFrame.isSimilarTo(
         currentFrame,
+        this.options.similarityTreshold,
       );
 
       if (!frameIsInTheSameShot) {
         const currentShot = new Shot(referenceFrame, currentFrame);
 
-        if (currentShot.isLargeEnough()) {
+        if (currentShot.isLargeEnough(this.options.minLength)) {
           const lastShot = shots[shots.length - 1];
           if (lastShot && currentShot.isContinuationOf(lastShot)) {
             shots[shots.length - 1] = new Shot(
