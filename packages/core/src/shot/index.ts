@@ -17,6 +17,10 @@ export class Shot {
     return Math.abs(this.startFrame.number - this.endFrame.number) >= 6;
   }
 
+  isContinuationOf(previousShot: Shot): boolean {
+    return previousShot.endFrame.number + 1 === this.startFrame.number;
+  }
+
   async export(videoPath: string, outputPath: string): Promise<void> {
     await exportVideoFragment(
       videoPath,

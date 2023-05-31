@@ -30,10 +30,18 @@ export class Shotbit {
       );
 
       if (!frameIsInTheSameShot) {
-        const shot = new Shot(referenceFrame, currentFrame);
+        const currentShot = new Shot(referenceFrame, currentFrame);
 
-        if (shot.isLargeEnough()) {
-          shots.push(shot);
+        if (currentShot.isLargeEnough()) {
+          const lastShot = shots[shots.length - 1];
+          if (lastShot && currentShot.isContinuationOf(lastShot)) {
+            shots[shots.length - 1] = new Shot(
+              lastShot.startFrame,
+              currentShot.endFrame,
+            );
+          } else {
+            shots.push(currentShot);
+          }
         }
 
         referenceFrame = currentFrame;
