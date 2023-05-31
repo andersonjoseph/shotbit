@@ -21,6 +21,7 @@
     "strict": true,
     "composite": true,
     "declaration": true,
-    "incremental": true
+    "incremental": true,
+    "skipLibCheck": true
   }
 }
