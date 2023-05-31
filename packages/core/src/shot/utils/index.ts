@@ -11,9 +11,10 @@ export function exportVideoFragment(
   return new Promise<void>((resolve, reject) => {
     ffmpeg(videoPath)
       .addOutputOption(`-ss ${startTime}.0`)
+      .addOutputOption('-c:v libx264')
+      .addOutputOption('-crf 18')
       .addOutputOption(`-to ${endTime}.0`)
       .addOutputOption(`-y`)
-      .addOutputOption('-c copy')
       .addOutputOption('-an')
       .save(path.join(outputPath, `${i++}.mp4`))
       .once('end', () => {
