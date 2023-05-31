@@ -1,0 +1,25 @@
+{
+  "name": "@shotbit/cli",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "cli for shotbit",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "engines": {
+    "node": "20"
+  },
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "start": "node build/index.js"
+  },
+  "author": "",
+  "license": "Unlicense",
+  "dependencies": {
+    "@shotbit/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.5",
+    "only-allow": "latest"
+  },
+  "author": "Anderson Joseph <andersonjoseph@mailfence.com>"
+}

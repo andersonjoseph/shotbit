@@ -1,0 +1,26 @@
+{
+  "references": [{ "path": "packages/cli" }, { "path": "packages/core" }],
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "node16",
+    "lib": ["ES2022"],
+    "outDir": "build",
+    "moduleResolution": "node16",
+    "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
+    "alwaysStrict": true,
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strict": true,
+    "composite": true,
+    "declaration": true,
+    "incremental": true
+  }
+}

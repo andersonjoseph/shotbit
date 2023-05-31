@@ -1,0 +1,25 @@
+{
+  "name": "@shotbit/core",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "core lib for shotbit",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "engines": {
+    "node": "20"
+  },
+  "scripts": {
+    "preinstall": "npx only-allow pnpm"
+  },
+  "license": "Unlicense",
+  "devDependencies": {
+    "@types/fluent-ffmpeg": "^2.1.21",
+    "@types/node": "^20.2.5",
+    "only-allow": "latest"
+  },
+  "dependencies": {
+    "fluent-ffmpeg": "^2.1.2",
+    "sharp": "^0.32.1"
+  },
+  "author": "Anderson Joseph <andersonjoseph@mailfence.com>"
+}

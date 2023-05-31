@@ -1,0 +1,30 @@
+{
+  "name": "shotbit",
+  "version": "0.0.1",
+  "description": "Extract movie shots/scenes easily.",
+  "type": "module",
+  "engines": {
+    "node": "20"
+  },
+  "devDependencies": {
+    "@types/node": "20",
+    "@typescript-eslint/eslint-plugin": "^5.59",
+    "@typescript-eslint/parser": "^5.59",
+    "eslint": "^8.38",
+    "eslint-config-prettier": "^8.8",
+    "prettier": "^2.8",
+    "tslib": "^2.5.2",
+    "typescript": "^5.0",
+    "only-allow": "latest"
+  },
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "prebuild": "npm run lint",
+    "build": "tsc --build tsconfig.json",
+    "build:watch": "tsc --build -w tsconfig.json",
+    "lint": "eslint . --ext .ts --ext .mts",
+    "prettier": "prettier --config .prettierrc --write ."
+  },
+  "author": "Anderson Joseph <andersonjoseph@mailfence.com>",
+  "license": "Unlicense"
+}
