@@ -1,5 +1,5 @@
 import { strict as assert } from 'node:assert';
-import { exportVideoFragment } from './utils/index.js';
+import ffmpeg from '../ffmpeg/index.js';
 import { Frame } from '../frame/index.js';
 
 export class Shot {
@@ -22,7 +22,7 @@ export class Shot {
   }
 
   async export(videoPath: string, outputPath: string): Promise<void> {
-    await exportVideoFragment(
+    await ffmpeg.exportVideoFragment(
       videoPath,
       outputPath,
       this.startFrame.number,
