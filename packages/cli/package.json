@@ -12,7 +12,6 @@
     "preinstall": "npx only-allow pnpm",
     "start": "node build/index.js"
   },
-  "author": "",
   "license": "Unlicense",
   "dependencies": {
     "@shotbit/core": "workspace:*"
