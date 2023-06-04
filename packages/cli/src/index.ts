@@ -2,8 +2,6 @@ import { Shotbit } from '@shotbit/core';
 import { parseArgs } from 'node:util';
 import { parseOptions } from './utils.js';
 
-const args = process.argv.slice(2, process.argv.length);
-
 const optionsSchema = {
   input: {
     type: 'string',
@@ -22,8 +20,7 @@ const optionsSchema = {
 } as const;
 
 const options = parseArgs({
-  args,
-  optionsSchema,
+  options: optionsSchema,
 }).values;
 
 const parsedOptions = parseOptions(options);
