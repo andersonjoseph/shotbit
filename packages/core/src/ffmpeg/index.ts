@@ -25,6 +25,9 @@ function exportVideoFragment(
   startTime: number,
   endTime: number,
 ): Promise<void> {
+  const videoFileName = path.basename(videoPath);
+  const videoName = path.parse(videoFileName).name;
+
   return new Promise<void>((resolve, reject) => {
     ffmpeg(videoPath)
       .addOutputOption(`-ss ${startTime}.0`)
@@ -33,7 +36,7 @@ function exportVideoFragment(
       .addOutputOption(`-to ${endTime}.0`)
       .addOutputOption(`-y`)
       .addOutputOption('-an')
-      .save(path.join(outputPath, `${path.basename(videoPath)}-${i++}.mp4`))
+      .save(path.join(outputPath, `${videoName}-${i++}.mp4`))
       .once('end', () => {
         resolve();
       })
