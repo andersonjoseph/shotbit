@@ -1,7 +1,5 @@
-import { Frame } from '../index.js';
-
 // based on the algorithm described in: https://www.hackerfactor.com/blog/index.php?/archives/529-Kind-of-Like-That.html
-function calculateHash(pixels: number[]) {
+export function calculateHash(pixels: number[]) {
   const rowsNumber = 9;
   const columnsNumber = 8;
 
@@ -33,13 +31,6 @@ function calculateHash(pixels: number[]) {
   if (hash.length < 16) {
     return '0000000000000000';
   }
-
-  return hash;
-}
-
-export async function getDHash(frame: Frame): Promise<string> {
-  const pixels = await frame.getPixels();
-  const hash = calculateHash(pixels);
 
   return hash;
 }

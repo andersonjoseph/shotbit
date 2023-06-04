@@ -2,7 +2,7 @@ import { strict as assert } from 'node:assert';
 import path from 'node:path';
 import { Readable } from 'node:stream';
 import sharp from 'sharp';
-import { getDHash, getHammingDistance } from './utils/index.js';
+import { calculateHash, getHammingDistance } from './utils/index.js';
 
 export class Frame {
   private cachedDHash = '';
@@ -49,7 +49,8 @@ export class Frame {
 
   async getDHash(): Promise<string> {
     if (!this.cachedDHash) {
-      this.cachedDHash = await getDHash(this);
+      const pixels = await this.getPixels();
+      this.cachedDHash = calculateHash(pixels);
     }
 
     return this.cachedDHash;
