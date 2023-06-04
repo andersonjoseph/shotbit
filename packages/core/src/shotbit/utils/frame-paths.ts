@@ -84,3 +84,14 @@ export async function extractFrames(videoPath: string): Promise<string[]> {
 
   return paths;
 }
+
+export async function createDirIfNotExists(path: string): Promise<void> {
+  try {
+    await mkdir(path);
+  } catch (err: unknown) {
+    if (err instanceof Error && 'code' in err && err.code === 'EEXIST') {
+      return;
+    }
+    throw err;
+  }
+}
