@@ -1,80 +1,74 @@
-import ffmpeg from 'fluent-ffmpeg';
 import { mkdir, readdir, rm } from 'fs/promises';
 import path from 'node:path';
+import ffmpeg from '../../ffmpeg/index.js';
 
 const __dirname = new URL('.', import.meta.url).pathname;
 
-function extractFramesFromVideo(
-  videoPath: string,
-  outputPath: string,
-): Promise<void> {
-  return new Promise<void>((resolve, reject) => {
-    ffmpeg(videoPath)
-      .addOutputOption('-r 1')
-      .save(path.join(outputPath, '%01d.jpg'))
-      .once('end', () => {
-        resolve();
-      })
-      .once('error', (err: unknown) => {
-        reject(err);
-      });
-  });
-}
-
-async function getCachedFramesDirectory(
-  videoName: string,
-): Promise<string | undefined> {
+async function getCachedDirectoryNames(): Promise<string[]> {
   const directoryContent = await readdir(__dirname, { withFileTypes: true });
 
-  const tmpDirectoryNames = directoryContent
-    .filter((dirent) => dirent.isDirectory())
+  const directoryNames = directoryContent
+    .filter(
+      (dirent) => dirent.isDirectory() && dirent.name.startsWith('shotbit'),
+    )
     .map((dirent) => dirent.name);
 
-  const cachedFramesDirectory = tmpDirectoryNames.find(
-    (directoryName) => directoryName.split('-')[1] === videoName,
-  );
+  return directoryNames;
+}
 
-  if (cachedFramesDirectory) {
-    const [timeStamp] = cachedFramesDirectory.split('-');
+async function deleteOldCachedDirectories() {
+  const directoryNames = await getCachedDirectoryNames();
 
-    const cacheDate = new Date(Number(timeStamp));
+  for (const cachedDirectory of directoryNames) {
+    const [cachedTimeStamp] = cachedDirectory.split('-')[1];
 
-    if (new Date().getDate() - cacheDate.getDate() >= 1) {
-      await rm(path.join(__dirname, cachedFramesDirectory), {
+    const cachedDate = new Date(Number(cachedTimeStamp));
+
+    if (new Date().getDate() - cachedDate.getDate() >= 1) {
+      await rm(path.join(__dirname, cachedDirectory), {
         force: true,
         recursive: true,
       });
-      return undefined;
     }
   }
-  return cachedFramesDirectory;
+}
+
+async function findCachedDirectory(
+  videoName: string,
+): Promise<string | undefined> {
+  await deleteOldCachedDirectories();
+
+  const directoryNames = await getCachedDirectoryNames();
+
+  const cachedDirectory = directoryNames.find(
+    (directoryName) => directoryName.split('-')[2] === videoName,
+  );
+
+  return cachedDirectory ? path.join(__dirname, cachedDirectory) : undefined;
 }
 
 async function createFramesDirectory(videoName: string): Promise<string> {
-  const directoryName = `${Date.now().toString()}-${videoName}`;
+  const directoryName = `shotbit-${Date.now().toString()}-${videoName}`;
   const framesDirectory = path.join(__dirname, directoryName);
   await mkdir(framesDirectory);
 
   return framesDirectory;
 }
 
-async function getFramesDirectory(videoPath: string): Promise<string> {
-  let directory: string;
+export async function extractFrames(videoPath: string): Promise<string[]> {
   const videoName = path.basename(videoPath);
 
-  const cachedFramesDirectory = await getCachedFramesDirectory(videoName);
-  if (cachedFramesDirectory) {
-    directory = path.join(__dirname, cachedFramesDirectory);
+  let framesDirectory: string;
+  const cachedDirectory: string | undefined = await findCachedDirectory(
+    videoName,
+  );
+
+  if (cachedDirectory) {
+    framesDirectory = cachedDirectory;
   } else {
-    directory = await createFramesDirectory(videoName);
-    await extractFramesFromVideo(videoPath, directory);
+    framesDirectory = await createFramesDirectory(videoName);
+    await ffmpeg.extractFrames(videoPath, framesDirectory);
   }
-
-  return directory;
-}
-
-export async function getFramePaths(videoPath: string) {
-  const framesDirectory = await getFramesDirectory(videoPath);
 
   const paths = (await readdir(framesDirectory))
     .map((framePath) => path.join(framesDirectory, framePath))

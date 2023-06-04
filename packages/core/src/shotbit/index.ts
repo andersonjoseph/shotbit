@@ -2,13 +2,13 @@ import { strict as assert } from 'node:assert';
 import { Frame } from '../frame/index.js';
 import { Shot } from '../shot/index.js';
 import { ShotbitOptions } from './types.js';
-import { getFramePaths } from './utils/index.js';
+import { extractFrames } from './utils/index.js';
 
 export class Shotbit {
   constructor(private readonly options: ShotbitOptions) {}
 
   async getShots(): Promise<void> {
-    const framePaths = await getFramePaths(this.options.videoPath);
+    const framePaths = await extractFrames(this.options.videoPath);
 
     const referenceFramePath = framePaths.shift();
     assert.ok(referenceFramePath);
