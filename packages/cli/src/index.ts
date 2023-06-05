@@ -17,6 +17,9 @@ const optionsSchema = {
   minLength: {
     type: 'string',
   },
+  noCache: {
+    type: 'boolean',
+  },
 } as const;
 
 const options = parseArgs({
@@ -30,6 +33,7 @@ const shotbit = new Shotbit({
   outputPath: parsedOptions.output,
   similarityTreshold: parsedOptions.similarityTreshold,
   minLength: parsedOptions.minLength,
+  noCache: parsedOptions.noCache,
 });
 
 console.log('generating shots...');

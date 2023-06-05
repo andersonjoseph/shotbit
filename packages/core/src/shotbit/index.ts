@@ -4,7 +4,7 @@ import { Shot } from '../shot/index.js';
 import { ShotbitOptions } from './types.js';
 import {
   createDirIfNotExists,
-  removeCachedDirectory,
+  removeCachedDirectorySync,
   getFramePaths,
   removeAllGeneratedVideos,
 } from './utils/index.js';
@@ -23,14 +23,16 @@ export class Shotbit {
   }
 
   private cleanUp() {
-    removeCachedDirectory(this.options.videoPath);
+    removeCachedDirectorySync(this.options.videoPath);
     removeAllGeneratedVideos(this.options.outputPath);
   }
 
   async getShots(): Promise<void> {
     await createDirIfNotExists(this.options.outputPath);
 
-    const framePaths = await getFramePaths(this.options.videoPath);
+    const framePaths = await getFramePaths(this.options.videoPath, {
+      noCache: Boolean(this.options.noCache),
+    });
 
     const referenceFramePath = framePaths.shift();
     assert.ok(referenceFramePath);

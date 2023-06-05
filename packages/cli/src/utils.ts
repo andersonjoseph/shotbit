@@ -5,6 +5,7 @@ type CliOptions = {
   output: string;
   similarityTreshold?: number;
   minLength?: number;
+  noCache?: boolean;
 };
 
 export function parseOptions(options: Record<string, unknown>): CliOptions {
@@ -19,7 +20,6 @@ export function parseOptions(options: Record<string, unknown>): CliOptions {
   let similarityTreshold: number | undefined;
   if ('similarityTreshold' in options) {
     assert.ok(typeof options.similarityTreshold === 'string');
-    assert.ok(typeof options.similarityTreshold === 'string');
 
     similarityTreshold = Number(options.similarityTreshold);
     assert.notEqual(isNaN(similarityTreshold), true);
@@ -28,10 +28,16 @@ export function parseOptions(options: Record<string, unknown>): CliOptions {
   let minLength: number | undefined;
   if ('minLength' in options) {
     assert.ok(typeof options.minLength === 'string');
-    assert.ok(typeof options.minLength === 'string');
 
     minLength = Number(options.minLength);
     assert.notEqual(isNaN(minLength), true);
+  }
+
+  let noCache: boolean | undefined;
+  if ('noCache' in options) {
+    assert.ok(typeof options.noCache === 'boolean');
+
+    noCache = options.noCache;
   }
 
   return {
@@ -39,5 +45,6 @@ export function parseOptions(options: Record<string, unknown>): CliOptions {
     output,
     similarityTreshold,
     minLength,
+    noCache,
   };
 }

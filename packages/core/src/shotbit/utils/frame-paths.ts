@@ -2,6 +2,7 @@ import { readdirSync, rmSync } from 'fs';
 import { mkdir, readdir, rm } from 'fs/promises';
 import path from 'node:path';
 import ffmpeg from '../../ffmpeg/index.js';
+import { GetFramePathsOptions } from './types.js';
 
 const __dirname = new URL('.', import.meta.url).pathname;
 
@@ -56,14 +57,45 @@ async function createFramesDirectory(videoName: string): Promise<string> {
   return framesDirectory;
 }
 
-export async function getFramePaths(videoPath: string): Promise<string[]> {
+async function removeCachedDirectory(videoPath: string): Promise<void> {
+  const videoFileName = path.basename(videoPath);
+  const videoName = path.parse(videoFileName).name;
+
+  const directoryContent = await readdir(__dirname, { withFileTypes: true });
+
+  const cachedDirectories = directoryContent
+    .filter(
+      (dirent) =>
+        dirent.isDirectory() &&
+        dirent.name.startsWith('shotbit') &&
+        dirent.name.split('-')[2] === videoName,
+    )
+    .map((dirent) => path.join(__dirname, dirent.name));
+
+  for (const directoryPath of cachedDirectories) {
+    await rm(directoryPath, { force: true, recursive: true });
+  }
+}
+
+const getFramePathsDefaultOptions: GetFramePathsOptions = {
+  noCache: false,
+};
+
+export async function getFramePaths(
+  videoPath: string,
+  options: GetFramePathsOptions = getFramePathsDefaultOptions,
+): Promise<string[]> {
   const videoFileName = path.basename(videoPath);
   const videoName = path.parse(videoFileName).name;
 
   let framesDirectory: string;
-  const cachedDirectory: string | undefined = await findCachedDirectory(
-    videoName,
-  );
+  let cachedDirectory: string | undefined;
+
+  if (options.noCache) {
+    await removeCachedDirectory(videoPath);
+  } else {
+    cachedDirectory = await findCachedDirectory(videoName);
+  }
 
   if (cachedDirectory) {
     framesDirectory = cachedDirectory;
@@ -98,7 +130,7 @@ export async function createDirIfNotExists(path: string): Promise<void> {
   }
 }
 
-export function removeCachedDirectory(videoPath: string): void {
+export function removeCachedDirectorySync(videoPath: string): void {
   const videoFileName = path.basename(videoPath);
   const videoName = path.parse(videoFileName).name;
 
@@ -111,7 +143,7 @@ export function removeCachedDirectory(videoPath: string): void {
         dirent.name.startsWith('shotbit') &&
         dirent.name.split('-')[2] === videoName,
     )
-    .map((dirent) => path.join(dirent.path, dirent.name))
+    .map((dirent) => path.join(__dirname, dirent.name))
     .forEach((path) => {
       rmSync(path, { force: true, recursive: true });
     });

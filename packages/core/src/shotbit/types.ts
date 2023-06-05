@@ -3,4 +3,5 @@ export type ShotbitOptions = {
   outputPath: string;
   similarityTreshold?: number;
   minLength?: number;
+  noCache?: boolean;
 };
