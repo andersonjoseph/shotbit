@@ -1,6 +1,6 @@
 import { Shotbit } from '@shotbit/core';
 import { parseArgs } from 'node:util';
-import { parseOptions } from './utils.js';
+import { CliOptions, parseOptions } from './utils.js';
 
 const optionsSchema = {
   input: {
@@ -26,7 +26,16 @@ const options = parseArgs({
   options: optionsSchema,
 }).values;
 
-const parsedOptions = parseOptions(options);
+let parsedOptions: CliOptions;
+
+try {
+  parsedOptions = parseOptions(options);
+} catch (err: unknown) {
+  if (err instanceof Error) {
+    console.log('Error:', err.message);
+  }
+  process.exit(1);
+}
 
 const shotbit = new Shotbit({
   videoPath: parsedOptions.input,
