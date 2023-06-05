@@ -55,7 +55,7 @@ async function createFramesDirectory(videoName: string): Promise<string> {
   return framesDirectory;
 }
 
-export async function extractFrames(videoPath: string): Promise<string[]> {
+export async function getFramePaths(videoPath: string): Promise<string[]> {
   const videoName = path.basename(videoPath);
 
   let framesDirectory: string;

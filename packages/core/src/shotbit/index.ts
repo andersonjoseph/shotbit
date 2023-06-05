@@ -2,7 +2,7 @@ import { strict as assert } from 'node:assert';
 import { Frame } from '../frame/index.js';
 import { Shot } from '../shot/index.js';
 import { ShotbitOptions } from './types.js';
-import { createDirIfNotExists, extractFrames } from './utils/index.js';
+import { createDirIfNotExists, getFramePaths } from './utils/index.js';
 
 export class Shotbit {
   constructor(private readonly options: ShotbitOptions) {}
@@ -10,7 +10,7 @@ export class Shotbit {
   async getShots(): Promise<void> {
     await createDirIfNotExists(this.options.outputPath);
 
-    const framePaths = await extractFrames(this.options.videoPath);
+    const framePaths = await getFramePaths(this.options.videoPath);
 
     const referenceFramePath = framePaths.shift();
     assert.ok(referenceFramePath);
