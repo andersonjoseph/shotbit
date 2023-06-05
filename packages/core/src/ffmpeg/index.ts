@@ -36,7 +36,7 @@ function exportVideoFragment(
       .addOutputOption(`-to ${endTime}.0`)
       .addOutputOption(`-y`)
       .addOutputOption('-an')
-      .save(path.join(outputPath, `${videoName}-${i++}.mp4`))
+      .save(path.join(outputPath, `shotbit-${videoName}-${i++}.mp4`))
       .once('end', () => {
         resolve();
       })
