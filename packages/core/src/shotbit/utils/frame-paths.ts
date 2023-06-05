@@ -56,7 +56,8 @@ async function createFramesDirectory(videoName: string): Promise<string> {
 }
 
 export async function getFramePaths(videoPath: string): Promise<string[]> {
-  const videoName = path.basename(videoPath);
+  const videoFileName = path.basename(videoPath);
+  const videoName = path.parse(videoFileName).name;
 
   let framesDirectory: string;
   const cachedDirectory: string | undefined = await findCachedDirectory(
