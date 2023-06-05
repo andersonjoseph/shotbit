@@ -77,13 +77,9 @@ async function removeCachedDirectory(videoPath: string): Promise<void> {
   }
 }
 
-const getFramePathsDefaultOptions: GetFramePathsOptions = {
-  noCache: false,
-};
-
 export async function getFramePaths(
   videoPath: string,
-  options: GetFramePathsOptions = getFramePathsDefaultOptions,
+  options: GetFramePathsOptions,
 ): Promise<string[]> {
   const videoFileName = path.basename(videoPath);
   const videoName = path.parse(videoFileName).name;

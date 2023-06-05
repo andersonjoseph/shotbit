@@ -9,8 +9,21 @@ import {
   removeAllGeneratedVideos,
 } from './utils/index.js';
 
+const defaultOptions: Omit<RequiredShotbitOptions, 'videoPath' | 'outputPath'> =
+  {
+    similarityTreshold: 20,
+    minLength: 5,
+    noCache: false,
+  };
+
+type RequiredShotbitOptions = Required<ShotbitOptions>;
+
 export class Shotbit {
-  constructor(private readonly options: ShotbitOptions) {
+  private readonly options: RequiredShotbitOptions;
+
+  constructor(options: ShotbitOptions) {
+    this.options = Object.assign(defaultOptions, options);
+
     for (const event of [
       'SIGINT',
       'SIGUSR1',
@@ -31,7 +44,7 @@ export class Shotbit {
     await createDirIfNotExists(this.options.outputPath);
 
     const framePaths = await getFramePaths(this.options.videoPath, {
-      noCache: Boolean(this.options.noCache),
+      noCache: this.options.noCache,
     });
 
     const referenceFramePath = framePaths.shift();

@@ -13,7 +13,7 @@ export class Shot {
     );
   }
 
-  isLargeEnough(minLength = 6): boolean {
+  isLargeEnough(minLength: number): boolean {
     return Math.abs(this.startFrame.number - this.endFrame.number) >= minLength;
   }
 

@@ -58,7 +58,7 @@ export class Frame {
 
   async isSimilarTo(
     otherFrame: Frame,
-    similarityTreshold = 20,
+    similarityTreshold: number,
   ): Promise<boolean> {
     const [thisHash, otherHash] = await Promise.all([
       this.getDHash(),
