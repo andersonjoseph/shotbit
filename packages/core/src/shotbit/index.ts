@@ -2,10 +2,30 @@ import { strict as assert } from 'node:assert';
 import { Frame } from '../frame/index.js';
 import { Shot } from '../shot/index.js';
 import { ShotbitOptions } from './types.js';
-import { createDirIfNotExists, getFramePaths } from './utils/index.js';
+import {
+  createDirIfNotExists,
+  removeCachedDirectory,
+  getFramePaths,
+  removeAllGeneratedVideos,
+} from './utils/index.js';
 
 export class Shotbit {
-  constructor(private readonly options: ShotbitOptions) {}
+  constructor(private readonly options: ShotbitOptions) {
+    for (const event of [
+      'SIGINT',
+      'SIGUSR1',
+      'SIGUSR2',
+      'uncaughtException',
+      'SIGTERM',
+    ]) {
+      process.on(event, this.cleanUp.bind(this));
+    }
+  }
+
+  private cleanUp() {
+    removeCachedDirectory(this.options.videoPath);
+    removeAllGeneratedVideos(this.options.outputPath);
+  }
 
   async getShots(): Promise<void> {
     await createDirIfNotExists(this.options.outputPath);

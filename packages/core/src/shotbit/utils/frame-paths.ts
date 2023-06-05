@@ -1,3 +1,4 @@
+import { readdirSync, rmSync } from 'fs';
 import { mkdir, readdir, rm } from 'fs/promises';
 import path from 'node:path';
 import ffmpeg from '../../ffmpeg/index.js';
@@ -95,4 +96,23 @@ export async function createDirIfNotExists(path: string): Promise<void> {
     }
     throw err;
   }
+}
+
+export function removeCachedDirectory(videoPath: string): void {
+  const videoFileName = path.basename(videoPath);
+  const videoName = path.parse(videoFileName).name;
+
+  const directoryContent = readdirSync(__dirname, { withFileTypes: true });
+
+  directoryContent
+    .filter(
+      (dirent) =>
+        dirent.isDirectory() &&
+        dirent.name.startsWith('shotbit') &&
+        dirent.name.split('-')[2] === videoName,
+    )
+    .map((dirent) => path.join(dirent.path, dirent.name))
+    .forEach((path) => {
+      rmSync(path, { force: true, recursive: true });
+    });
 }
