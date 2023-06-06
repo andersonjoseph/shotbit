@@ -9,14 +9,14 @@ import {
   removeAllGeneratedVideos,
 } from './utils/index.js';
 
+type RequiredShotbitOptions = Required<ShotbitOptions>;
+
 const defaultOptions: Omit<RequiredShotbitOptions, 'videoPath' | 'outputPath'> =
   {
     similarityTreshold: 20,
     minLength: 5,
     noCache: false,
   };
-
-type RequiredShotbitOptions = Required<ShotbitOptions>;
 
 export class Shotbit {
   private readonly options: RequiredShotbitOptions;

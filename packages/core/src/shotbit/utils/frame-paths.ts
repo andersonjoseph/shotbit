@@ -84,7 +84,6 @@ export async function getFramePaths(
   const videoFileName = path.basename(videoPath);
   const videoName = path.parse(videoFileName).name;
 
-  let framesDirectory: string;
   let cachedDirectory: string | undefined;
 
   if (options.noCache) {
@@ -93,6 +92,7 @@ export async function getFramePaths(
     cachedDirectory = await findCachedDirectory(videoName);
   }
 
+  let framesDirectory: string;
   if (cachedDirectory) {
     framesDirectory = cachedDirectory;
   } else {
