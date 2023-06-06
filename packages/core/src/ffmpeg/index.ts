@@ -46,7 +46,24 @@ function exportVideoFragment(
   });
 }
 
+function isVideo(filePath: string): Promise<boolean> {
+  return new Promise<boolean>((resolve, reject) => {
+    ffmpeg(filePath).ffprobe((err, data) => {
+      if (err) {
+        reject(err);
+      }
+
+      resolve(
+        data.format.format_name !== undefined &&
+          !data.format.format_name.includes('pipe') &&
+          data.streams.some((stream) => stream.codec_type === 'video'),
+      );
+    });
+  });
+}
+
 export default {
   extractFrames,
   exportVideoFragment,
+  isVideo,
 };

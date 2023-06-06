@@ -1,4 +1,5 @@
 import { strict as assert } from 'node:assert';
+import ffmpeg from '../ffmpeg/index.js';
 import { Frame } from '../frame/index.js';
 import { Shot } from '../shot/index.js';
 import { ShotbitOptions } from './types.js';
@@ -41,6 +42,13 @@ export class Shotbit {
   }
 
   async getShots(): Promise<void> {
+    try {
+      assert.ok(await ffmpeg.isVideo(this.options.videoPath));
+    } catch (err) {
+      //TODO: emit error event
+      process.exit(1);
+    }
+
     await createDirIfNotExists(this.options.outputPath);
 
     const framePaths = await getFramePaths(this.options.videoPath, {
