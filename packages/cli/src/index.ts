@@ -45,8 +45,32 @@ const shotbit = new Shotbit({
   noCache: parsedOptions.noCache,
 });
 
-console.log('generating shots...');
+shotbit.on('started', () => {
+  console.log('process started...');
+});
+
+shotbit.on('startedRetrievingFrames', () => {
+  console.log('retrieving frames...');
+});
+
+shotbit.on('framesRetrieved', () => {
+  console.log('done');
+});
+
+shotbit.on('startedExportingShots', () => {
+  console.log('exporting shots...');
+});
+
+shotbit.on('framesRetrieved', () => {
+  console.log('frames retrieved...');
+});
+
+shotbit.on('shotsExported', () => {
+  console.log('done');
+});
+
+shotbit.on('error', (err: Error) => {
+  console.log('an error has occured:', err.message);
+});
 
 await shotbit.getShots();
-
-console.log('done');
