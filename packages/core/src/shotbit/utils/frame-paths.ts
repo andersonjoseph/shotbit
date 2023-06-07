@@ -43,7 +43,7 @@ async function findCachedDirectory(
   const directoryNames = await getCachedDirectoryNames();
 
   const cachedDirectory = directoryNames.find(
-    (directoryName) => directoryName.split('-')[2] === videoName,
+    (directoryName) => directoryName.split(/shotbit-\d+-/)[1] === videoName,
   );
 
   return cachedDirectory ? path.join(__dirname, cachedDirectory) : undefined;
@@ -68,7 +68,7 @@ async function removeCachedDirectory(videoPath: string): Promise<void> {
       (dirent) =>
         dirent.isDirectory() &&
         dirent.name.startsWith('shotbit') &&
-        dirent.name.split('-')[2] === videoName,
+        dirent.name.split(/shotbit-\d+-/)[1] === videoName,
     )
     .map((dirent) => path.join(__dirname, dirent.name));
 
@@ -137,7 +137,7 @@ export function removeCachedDirectorySync(videoPath: string): void {
       (dirent) =>
         dirent.isDirectory() &&
         dirent.name.startsWith('shotbit') &&
-        dirent.name.split('-')[2] === videoName,
+        dirent.name.split(/shotbit-\d+-/)[1] === videoName,
     )
     .map((dirent) => path.join(__dirname, dirent.name))
     .forEach((path) => {
