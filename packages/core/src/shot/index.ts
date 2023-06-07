@@ -1,5 +1,4 @@
 import { strict as assert } from 'node:assert';
-import ffmpeg from '../ffmpeg/index.js';
 import { Frame } from '../frame/index.js';
 
 export class Shot {
@@ -19,14 +18,5 @@ export class Shot {
 
   isContinuationOf(previousShot: Shot): boolean {
     return previousShot.endFrame.number + 1 === this.startFrame.number;
-  }
-
-  async export(videoPath: string, outputPath: string): Promise<void> {
-    await ffmpeg.exportVideoFragment(
-      videoPath,
-      outputPath,
-      this.startFrame.number,
-      this.endFrame.number - 3,
-    );
   }
 }

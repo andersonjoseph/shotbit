@@ -1,5 +1,6 @@
 import ffmpeg from 'fluent-ffmpeg';
 import path from 'node:path';
+import { Shot } from '../shot/index.js';
 
 async function extractFrames(
   videoPath: string,
@@ -18,31 +19,36 @@ async function extractFrames(
   });
 }
 
-let i = 0;
-function exportVideoFragment(
+function exportShots(
+  shots: Shot[],
   videoPath: string,
   outputPath: string,
-  startTime: number,
-  endTime: number,
 ): Promise<void> {
   const videoFileName = path.basename(videoPath);
   const videoName = path.parse(videoFileName).name;
 
-  return new Promise<void>((resolve, reject) => {
-    ffmpeg(videoPath)
-      .addOutputOption(`-ss ${startTime}.0`)
+  const ffmpegCommand = ffmpeg(videoPath);
+
+  for (const indexShot in shots) {
+    ffmpegCommand
+      .addOutput(path.join(outputPath, `shotbit-${videoName}-${indexShot}.mp4`))
+      .addOutputOption(`-ss ${shots[indexShot].startFrame.number}.0`)
       .addOutputOption('-c:v libx264')
       .addOutputOption('-crf 18')
-      .addOutputOption(`-to ${endTime}.0`)
+      .addOutputOption(`-to ${shots[indexShot].endFrame.number - 3}.0`)
       .addOutputOption(`-y`)
-      .addOutputOption('-an')
-      .save(path.join(outputPath, `shotbit-${videoName}-${i++}.mp4`))
-      .once('end', () => {
-        resolve();
-      })
-      .once('error', (err) => {
-        reject(err);
-      });
+      .addOutputOption('-an');
+  }
+
+  return new Promise<void>((resolve, reject) => {
+    ffmpegCommand.once('end', () => {
+      resolve();
+    });
+    ffmpegCommand.once('error', (err) => {
+      reject(err);
+    });
+
+    ffmpegCommand.run();
   });
 }
 
@@ -64,6 +70,6 @@ function isVideo(filePath: string): Promise<boolean> {
 
 export default {
   extractFrames,
-  exportVideoFragment,
   isVideo,
+  exportShots,
 };

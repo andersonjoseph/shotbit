@@ -1,5 +1,6 @@
 import { strict as assert } from 'node:assert';
 import EventEmitter from 'node:events';
+import ffmpeg from '../ffmpeg/index.js';
 import { Frame } from '../frame/index.js';
 import { Shot } from '../shot/index.js';
 import { ShotbitEvents, ShotbitOptions } from './types.js';
@@ -115,10 +116,10 @@ export class Shotbit extends EventEmitter {
 
     this.emit('startedExportingShots');
 
-    await Promise.all(
-      shots.map((shot) =>
-        shot.export(this.options.videoPath, this.options.outputPath),
-      ),
+    await ffmpeg.exportShots(
+      shots,
+      this.options.videoPath,
+      this.options.outputPath,
     );
 
     this.emit('shotsExported');
