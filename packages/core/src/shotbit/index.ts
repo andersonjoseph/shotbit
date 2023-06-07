@@ -9,6 +9,7 @@ import {
   getFramePaths,
   removeAllGeneratedVideos,
   isValidVideo,
+  assignDefined,
 } from './utils/index.js';
 
 type RequiredShotbitOptions = Required<ShotbitOptions>;
@@ -38,7 +39,7 @@ export class Shotbit extends EventEmitter {
   constructor(options: ShotbitOptions) {
     super();
 
-    this.options = Object.assign(defaultOptions, options);
+    this.options = assignDefined(defaultOptions, options);
 
     for (const event of [
       'SIGINT',
