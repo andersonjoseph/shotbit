@@ -11,13 +11,14 @@ import {
   removeAllGeneratedVideos,
   isValidVideo,
   assignDefined,
+  mapSimilarityTreshold,
 } from './utils/index.js';
 
 type RequiredShotbitOptions = Required<ShotbitOptions>;
 
 const defaultOptions: Omit<RequiredShotbitOptions, 'videoPath' | 'outputPath'> =
   {
-    similarityTreshold: 20,
+    similarityTreshold: 0,
     minLength: 5,
     noCache: false,
   };
@@ -41,6 +42,24 @@ export class Shotbit extends EventEmitter {
     super();
 
     this.options = assignDefined(defaultOptions, options);
+
+    this.options.similarityTreshold = mapSimilarityTreshold(
+      this.options.similarityTreshold,
+    );
+
+    try {
+      assert.ok(
+        this.options.similarityTreshold >= 20 &&
+          this.options.similarityTreshold <= 30,
+      );
+    } catch (err) {
+      this.emit(
+        'error',
+        new Error('similarity treshold should be between 0 and 1'),
+      );
+
+      return;
+    }
 
     for (const event of [
       'SIGINT',

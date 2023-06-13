@@ -51,3 +51,13 @@ export function assignDefined<
 
   return target as T & S;
 }
+
+export function mapSimilarityTreshold(parameterValue: number): number {
+  const min = 20;
+  const max = 35;
+
+  const range = max - min;
+  const mappedValue = range * parameterValue + min;
+
+  return mappedValue;
+}
