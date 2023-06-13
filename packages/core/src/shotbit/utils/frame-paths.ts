@@ -22,7 +22,7 @@ async function deleteOldCachedDirectories() {
   const directoryNames = await getCachedDirectoryNames();
 
   for (const cachedDirectory of directoryNames) {
-    const [cachedTimeStamp] = cachedDirectory.split('-')[1];
+    const cachedTimeStamp = cachedDirectory.split('-')[1];
 
     const cachedDate = new Date(Number(cachedTimeStamp));
 
