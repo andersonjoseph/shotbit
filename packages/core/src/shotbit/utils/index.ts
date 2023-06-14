@@ -6,8 +6,6 @@ import assert from 'node:assert';
 
 export * from './frame-paths.js';
 
-const __dirname = new URL('.', import.meta.url).pathname;
-
 async function fileExists(filePath: string): Promise<boolean> {
   try {
     await access(filePath);
@@ -23,9 +21,9 @@ export function removeAllGeneratedVideos(outputPath: string): void {
 
   directoryContent
     .filter((dirent) => dirent.name.startsWith('shotbit'))
-    .map((dirent) => path.join(__dirname, dirent.name))
+    .map((dirent) => path.join(outputPath, dirent.name))
     .forEach((path) => {
-      rmSync(path, { force: true, recursive: true });
+      rmSync(path);
     });
 }
 
