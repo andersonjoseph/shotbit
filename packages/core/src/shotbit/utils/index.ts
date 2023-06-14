@@ -2,6 +2,7 @@ import path from 'node:path';
 import { readdirSync, rmSync } from 'fs';
 import { access } from 'node:fs/promises';
 import ffmpeg from '../../ffmpeg/index.js';
+import assert from 'node:assert';
 
 export * from './frame-paths.js';
 
@@ -53,6 +54,11 @@ export function assignDefined<
 }
 
 export function mapSimilarityTreshold(parameterValue: number): number {
+  assert.ok(
+    parameterValue >= 0 && parameterValue <= 1,
+    'value must be between 0 and 1',
+  );
+
   const min = 20;
   const max = 35;
 

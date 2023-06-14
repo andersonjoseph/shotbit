@@ -43,21 +43,14 @@ export class Shotbit extends EventEmitter {
 
     this.options = assignDefined(defaultOptions, options);
 
-    this.options.similarityTreshold = mapSimilarityTreshold(
-      this.options.similarityTreshold,
-    );
-
     try {
-      assert.ok(
-        this.options.similarityTreshold >= 20 &&
-          this.options.similarityTreshold <= 30,
+      this.options.similarityTreshold = mapSimilarityTreshold(
+        this.options.similarityTreshold,
       );
     } catch (err) {
-      this.emit(
-        'error',
-        new Error('similarity treshold should be between 0 and 1'),
-      );
-
+      if (err instanceof Error) {
+        this.emit('error', err);
+      }
       return;
     }
 
