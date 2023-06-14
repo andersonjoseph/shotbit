@@ -15,6 +15,7 @@
     "only-allow": "latest",
     "prettier": "^2.8",
     "rimraf": "^5.0.1",
+    "ts-node": "^10.9.1",
     "tslib": "^2.5.2",
     "typescript": "^5.0"
   },
@@ -24,7 +25,8 @@
     "build": "pnpm clean && tsc --build tsconfig.json",
     "build:watch": "pnpm clean && tsc --build tsconfig.json -w",
     "lint": "eslint . --ext .ts --ext .mts",
-    "prettier": "prettier --config .prettierrc --write ."
+    "prettier": "prettier --config .prettierrc --write .",
+    "test": "node --loader ts-node/esm --test ./packages/**/test/**/*.test.ts"
   },
   "author": "Anderson Joseph <andersonjoseph@mailfence.com>",
   "license": "Unlicense"
