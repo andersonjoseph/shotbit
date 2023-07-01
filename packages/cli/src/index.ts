@@ -1,6 +1,8 @@
 import { Shotbit } from '@shotbit/core';
+
 import { parseArgs } from 'node:util';
 import { CliOptions, parseOptions } from './utils.js';
+import Spinnies from 'spinnies';
 
 const optionsSchema = {
   input: {
@@ -45,32 +47,27 @@ const shotbit = new Shotbit({
   noCache: parsedOptions.noCache,
 });
 
+const spinner = new Spinnies();
+spinner.add('main');
+
 shotbit.on('started', () => {
-  console.log('process started...');
+  spinner.update('main', { text: 'shotbit v1' });
 });
 
 shotbit.on('startedRetrievingFrames', () => {
-  console.log('retrieving frames...');
-});
-
-shotbit.on('framesRetrieved', () => {
-  console.log('done');
+  spinner.update('main', { text: 'retrieving frames', color: 'white' });
 });
 
 shotbit.on('startedExportingShots', () => {
-  console.log('exporting shots...');
-});
-
-shotbit.on('framesRetrieved', () => {
-  console.log('frames retrieved...');
+  spinner.update('main', { text: 'exporting shots' });
 });
 
 shotbit.on('shotsExported', () => {
-  console.log('done');
+  spinner.succeed('main', { text: 'done' });
 });
 
 shotbit.on('error', (err: Error) => {
-  console.log('an error has occured:', err.message);
+  spinner.fail(`'an error has occured:' ${err.message}`);
 });
 
 await shotbit.getShots();
