@@ -29,3 +29,5 @@ packages/**/build
 # Misc
 .DS_Store
 tsconfig.tsbuildinfo
+
+pnpm-lock.yaml
