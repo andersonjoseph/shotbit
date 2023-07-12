@@ -4,8 +4,6 @@ import path from 'node:path';
 import ffmpeg from '../../ffmpeg/index.js';
 import { GetFramePathsOptions } from './types.js';
 
-const __dirname = new URL('.', import.meta.url).pathname;
-
 async function getCachedDirectoryNames(): Promise<string[]> {
   const directoryContent = await readdir(__dirname, { withFileTypes: true });
 

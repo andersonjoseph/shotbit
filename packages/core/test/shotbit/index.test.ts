@@ -4,8 +4,6 @@ import path from 'node:path';
 import test from 'node:test';
 import { Shotbit } from '../../src/index.js';
 
-const __dirname = new URL('.', import.meta.url).pathname;
-
 test('shotbit.getShots()', { skip: true }, async () => {
   const videoPath = path.join(
     __dirname,

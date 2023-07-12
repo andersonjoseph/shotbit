@@ -70,4 +70,4 @@ shotbit.on('error', (err: Error) => {
   spinner.fail(`'an error has occured:' ${err.message}`);
 });
 
-await shotbit.getShots();
+shotbit.getShots();

@@ -2,7 +2,6 @@
   "name": "shotbit",
   "version": "0.0.1",
   "description": "Extract movie shots/scenes easily.",
-  "type": "module",
   "engines": {
     "node": "20"
   },

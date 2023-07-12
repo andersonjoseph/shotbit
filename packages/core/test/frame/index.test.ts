@@ -3,8 +3,6 @@ import path from 'node:path';
 import { test, describe, beforeEach } from 'node:test';
 import { Frame } from '../../src/frame/index.js';
 
-const __dirname = new URL('.', import.meta.url).pathname;
-
 describe('Frame', () => {
   let frame: Frame;
   const similarityTreshold = 25;

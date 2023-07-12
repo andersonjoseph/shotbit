@@ -9,8 +9,6 @@ import {
 } from '../../src/shotbit/utils/index.js';
 import path from 'node:path';
 
-const __dirname = new URL('.', import.meta.url).pathname;
-
 describe('mapSimilarityTreshold(parameterValue: number)', () => {
   test('map a value between 20 and 35', () => {
     let value: number;
