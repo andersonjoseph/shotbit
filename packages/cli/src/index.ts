@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Shotbit } from '@shotbit/core';
 
 import { parseArgs } from 'node:util';

@@ -4,6 +4,7 @@
   "description": "cli for shotbit",
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "bin": "build/index.js",
   "engines": {
     "node": "20"
   },
