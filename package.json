@@ -2,6 +2,10 @@
   "name": "shotbit",
   "version": "0.0.1",
   "description": "Extract movie shots/scenes easily.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andersonjoseph/shotbit"
+  },
   "engines": {
     "node": "20"
   },

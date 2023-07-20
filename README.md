@@ -9,7 +9,7 @@ Shotbit is a NodeJS tool that allows you to extract movie scenes/shots easily.
 To install Shotbit, run the following commands:
 
 ```sh
-git clone git@github.com:hateablestream/shotbit.git
+git clone git@github.com:andersonjoseph/shotbit.git
 cd shotbit
 pnpm install
 ```

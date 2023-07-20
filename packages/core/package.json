@@ -4,6 +4,11 @@
   "description": "core lib for shotbit",
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andersonjoseph/shotbit",
+    "directory": "packages/core"
+  },
   "engines": {
     "node": "20"
   },
