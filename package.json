@@ -29,7 +29,8 @@
     "build:watch": "pnpm clean && tsc --build tsconfig.json -w",
     "lint": "eslint . --ext .ts --ext .mts",
     "prettier": "prettier --config .prettierrc --write .",
-    "test": "node --loader ts-node/esm --test ./packages/**/test/**/*.test.ts"
+    "test": "node --loader ts-node/esm --test ./packages/**/test/**/*.test.ts",
+    "cli": "pnpm build && pnpm node ./packages/cli/build/index.js"
   },
   "author": "Anderson Joseph <andersonjoseph@mailfence.com>",
   "license": "Unlicense"

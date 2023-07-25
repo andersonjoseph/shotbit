@@ -18,10 +18,10 @@ pnpm install
 
 ### CLI
 
-To use Shotbit in CLI, run the following command in `shotbit/packages/cli`:
+To use Shotbit CLI, run the following command:
 
 ```
-pnpm start -i <video-file> -o <output-path>
+pnpm cli -i <video-file> -o <output-path>
 ```
 
 The following options are available:
