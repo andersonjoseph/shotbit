@@ -2,7 +2,7 @@
 
 Shotbit is a NodeJS tool that allows you to extract movie scenes/shots easily.
 
-![shotbit example](./cover.gif)
+https://user-images.githubusercontent.com/22438127/256321740-81bfdc3e-8a72-43b8-a8cc-462076244ff9.mp4
 
 ## Getting Started
 
