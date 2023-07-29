@@ -14,6 +14,8 @@ cd shotbit
 pnpm install
 ```
 
+_Note: you must have [ffmpeg installed](https://ffmpeg.org/download.html)_
+
 ## Usage
 
 ### CLI
