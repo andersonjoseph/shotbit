@@ -12,9 +12,6 @@
   "engines": {
     "node": "20"
   },
-  "scripts": {
-    "preinstall": "npx only-allow pnpm"
-  },
   "license": "Unlicense",
   "devDependencies": {
     "@types/fluent-ffmpeg": "^2.1.21",
