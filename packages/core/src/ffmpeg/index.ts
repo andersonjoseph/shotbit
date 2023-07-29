@@ -56,7 +56,7 @@ function isVideo(filePath: string): Promise<boolean> {
   return new Promise<boolean>((resolve, reject) => {
     ffmpeg(filePath).ffprobe((err, data) => {
       if (err) {
-        reject(err);
+        return reject(err);
       }
 
       resolve(
