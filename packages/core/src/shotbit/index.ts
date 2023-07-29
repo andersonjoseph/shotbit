@@ -72,11 +72,16 @@ export class Shotbit extends EventEmitter {
 
   async getShots(): Promise<void> {
     try {
-      assert.ok(await isValidVideo(this.options.videoPath));
+      assert.ok(
+        await isValidVideo(this.options.videoPath),
+        'input file must be a valid video',
+      );
     } catch (err) {
-      this.emit('error', new Error('input file must be a valid video'));
+      if (err instanceof Error) {
+        this.emit('error', err);
+      }
 
-      return;
+      throw err;
     }
 
     this.emit('started');
