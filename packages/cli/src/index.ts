@@ -57,11 +57,14 @@ shotbit.on('started', () => {
 });
 
 shotbit.on('startedRetrievingFrames', () => {
-  spinner.update('main', { text: 'retrieving frames', color: 'white' });
+  spinner.update('main', {
+    text: 'retrieving frames (this could take a while)',
+    color: 'white',
+  });
 });
 
 shotbit.on('startedExportingShots', () => {
-  spinner.update('main', { text: 'exporting shots' });
+  spinner.update('main', { text: 'exporting shots (this could take a while)' });
 });
 
 shotbit.on('shotsExported', () => {
