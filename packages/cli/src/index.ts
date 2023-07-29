@@ -72,7 +72,7 @@ shotbit.on('shotsExported', () => {
 });
 
 shotbit.on('error', (err: Error) => {
-  spinner.fail(`'an error has occured:' ${err.message}`);
+  spinner.fail('main', { text: `'an error has occured:' ${err.message}` });
 });
 
 shotbit.getShots();
