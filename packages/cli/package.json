@@ -10,9 +10,6 @@
     "url": "https://github.com/andersonjoseph/shotbit",
     "directory": "packages/cli"
   },
-  "engines": {
-    "node": "20"
-  },
   "scripts": {
     "start": "node build/index.js"
   },

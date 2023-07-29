@@ -9,9 +9,6 @@
     "url": "https://github.com/andersonjoseph/shotbit",
     "directory": "packages/core"
   },
-  "engines": {
-    "node": "20"
-  },
   "license": "Unlicense",
   "devDependencies": {
     "@types/fluent-ffmpeg": "^2.1.21",
