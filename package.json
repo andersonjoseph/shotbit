@@ -22,7 +22,7 @@
     "typescript": "^5.0"
   },
   "scripts": {
-    "clean": "rimraf build && rimraf ./packages/**/build",
+    "clean": "rimraf ./build ./packages/cli/build ./packages/core/build",
     "build": "pnpm clean && tsc --build tsconfig.json",
     "build:watch": "pnpm clean && tsc --build tsconfig.json -w",
     "lint": "eslint . --ext .ts --ext .mts",
