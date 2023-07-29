@@ -50,11 +50,7 @@ const shotbit = new Shotbit({
 });
 
 const spinner = new Spinnies();
-spinner.add('main');
-
-shotbit.on('started', () => {
-  spinner.update('main', { text: 'shotbit v1' });
-});
+spinner.add('main', { text: 'shotbit v1.0.0-alpha' });
 
 shotbit.on('startedRetrievingFrames', () => {
   spinner.update('main', {
