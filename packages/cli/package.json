@@ -1,6 +1,6 @@
 {
   "name": "@shotbit/cli",
-  "version": "0.0.1",
+  "version": "1.0.1-alpha",
   "description": "cli for shotbit",
   "main": "build/index.js",
   "types": "build/index.d.ts",

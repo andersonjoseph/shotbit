@@ -1,6 +1,6 @@
 {
   "name": "@shotbit/core",
-  "version": "0.0.1",
+  "version": "1.0.1-alpha",
   "description": "core lib for shotbit",
   "main": "build/index.js",
   "types": "build/index.d.ts",
