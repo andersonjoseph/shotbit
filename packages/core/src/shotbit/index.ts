@@ -6,12 +6,12 @@ import { Shot } from '../shot/index.js';
 import { ShotbitEvents, ShotbitOptions } from './types.js';
 import {
   createDirIfNotExists,
-  removeCachedDirectorySync,
   getFramePaths,
   removeAllGeneratedVideos,
   isValidVideo,
   assignDefined,
   mapSimilarityTreshold,
+  removeCachedDirectory,
 } from './utils/index.js';
 
 type RequiredShotbitOptions = Required<ShotbitOptions>;
@@ -65,9 +65,9 @@ export class Shotbit extends EventEmitter {
     }
   }
 
-  private cleanUp() {
-    removeCachedDirectorySync(this.options.videoPath);
-    removeAllGeneratedVideos(this.options.outputPath);
+  private async cleanUp() {
+    await removeCachedDirectory(this.options.videoPath);
+    await removeAllGeneratedVideos(this.options.outputPath);
   }
 
   async getShots(): Promise<void> {

@@ -1,6 +1,5 @@
 import path from 'node:path';
-import { readdirSync, rmSync } from 'fs';
-import { access } from 'node:fs/promises';
+import { access, readdir, rm } from 'node:fs/promises';
 import ffmpeg from '../../ffmpeg/index.js';
 import assert from 'node:assert';
 
@@ -16,15 +15,17 @@ async function fileExists(filePath: string): Promise<boolean> {
   return true;
 }
 
-export function removeAllGeneratedVideos(outputPath: string): void {
-  const directoryContent = readdirSync(outputPath, { withFileTypes: true });
+export async function removeAllGeneratedVideos(
+  outputPath: string,
+): Promise<void> {
+  const directoryContent = await readdir(outputPath, { withFileTypes: true });
 
-  directoryContent
+  const promises = directoryContent
     .filter((dirent) => dirent.name.startsWith('shotbit'))
     .map((dirent) => path.join(outputPath, dirent.name))
-    .forEach((path) => {
-      rmSync(path);
-    });
+    .map((path) => rm(path, { force: true, recursive: true }));
+
+  await Promise.all(promises);
 }
 
 export async function isValidVideo(filePath: string) {
