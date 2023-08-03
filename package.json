@@ -20,12 +20,13 @@
   },
   "scripts": {
     "clean": "rimraf ./build ./packages/cli/build ./packages/core/build",
-    "build": "pnpm clean && tsc --build tsconfig.json",
-    "build:watch": "pnpm clean && tsc --build tsconfig.json -w",
+    "build": "npm run clean && tsc --build tsconfig.json",
+    "build:watch": "npm run clean && tsc --build tsconfig.json -w",
     "lint": "eslint . --ext .ts --ext .mts",
     "prettier": "prettier --config .prettierrc --write .",
-    "test": "node --loader ts-node/esm --test ./packages/**/test/**/*.test.ts",
-    "cli": "pnpm build && pnpm node ./packages/cli/build/index.js"
+    "test:cli": "node --test ./packages/core/build/test/*.test.js",
+    "test": "npm run build && npm run test:cli",
+    "cli": "npm run build && node ./packages/cli/build/index.js"
   },
   "author": "Anderson Joseph <andersonjoseph@mailfence.com>",
   "license": "Unlicense"

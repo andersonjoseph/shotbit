@@ -2,8 +2,8 @@
   "name": "@shotbit/core",
   "version": "1.0.1-alpha",
   "description": "core lib for shotbit",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/andersonjoseph/shotbit",
