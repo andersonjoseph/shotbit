@@ -6,7 +6,6 @@ import { calculateHash, getHammingDistance } from './utils/index.js';
 
 export class Frame {
   private cachedDHash = '';
-  private cachedPixels: number[] = [];
 
   public readonly number: number;
   public readonly fileName: string;
@@ -30,12 +29,9 @@ export class Frame {
   }
 
   async getPixels(): Promise<number[]> {
-    if (!this.cachedPixels.length) {
-      const imageStream = this.getStream();
-      this.cachedPixels = await this.getPixelsFromStream(imageStream);
-    }
+    const imageStream = this.getStream();
 
-    return this.cachedPixels;
+    return await this.getPixelsFromStream(imageStream);
   }
 
   private getStream(): Readable {
