@@ -5,13 +5,12 @@ import { Frame } from '../frame/index.js';
 import { Shot } from '../shot/index.js';
 import { ShotbitEvents, ShotbitOptions } from './types.js';
 import {
-  createDirIfNotExists,
-  getFramePaths,
   removeAllGeneratedVideos,
   isValidVideo,
   assignDefined,
   mapSimilarityTreshold,
-  removeCachedDirectory,
+  FramesHandler,
+  createDirIfNotExists,
 } from './utils/index.js';
 
 type RequiredShotbitOptions = Required<ShotbitOptions>;
@@ -37,11 +36,17 @@ export interface Shotbit {
 
 export class Shotbit extends EventEmitter {
   private readonly options: RequiredShotbitOptions;
+  private readonly framesHandler: FramesHandler;
 
   constructor(options: ShotbitOptions) {
     super();
 
     this.options = assignDefined(defaultOptions, options);
+
+    this.framesHandler = new FramesHandler(
+      this.options.videoPath,
+      this.options,
+    );
 
     try {
       this.options.similarityTreshold = mapSimilarityTreshold(
@@ -66,7 +71,7 @@ export class Shotbit extends EventEmitter {
   }
 
   private async cleanUp() {
-    await removeCachedDirectory(this.options.videoPath);
+    await this.framesHandler.removeCachedDirectory();
     await removeAllGeneratedVideos(this.options.outputPath);
   }
 
@@ -90,9 +95,7 @@ export class Shotbit extends EventEmitter {
 
     this.emit('startedRetrievingFrames');
 
-    const framePaths = await getFramePaths(this.options.videoPath, {
-      noCache: this.options.noCache,
-    });
+    const framePaths = await this.framesHandler.getFrames();
 
     this.emit('framesRetrieved', framePaths);
 

@@ -1,9 +1,9 @@
 import path from 'node:path';
-import { access, readdir, rm } from 'node:fs/promises';
+import { access, mkdir, readdir, rm } from 'node:fs/promises';
 import ffmpeg from '../../ffmpeg/index.js';
 import assert from 'node:assert';
 
-export * from './frame-paths.js';
+export * from './frames-handler';
 
 async function fileExists(filePath: string): Promise<boolean> {
   try {
@@ -13,6 +13,17 @@ async function fileExists(filePath: string): Promise<boolean> {
   }
 
   return true;
+}
+
+export async function createDirIfNotExists(path: string): Promise<void> {
+  try {
+    await mkdir(path);
+  } catch (err: unknown) {
+    if (err instanceof Error && 'code' in err && err.code === 'EEXIST') {
+      return;
+    }
+    throw err;
+  }
 }
 
 export async function removeAllGeneratedVideos(

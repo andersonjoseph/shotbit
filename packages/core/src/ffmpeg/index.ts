@@ -53,13 +53,13 @@ function exportShots(
 }
 
 function isVideo(filePath: string): Promise<boolean> {
-  return new Promise<boolean>((resolve, reject) => {
+  return new Promise<boolean>((resolve) => {
     ffmpeg(filePath).ffprobe((err, data) => {
       if (err) {
-        return reject(err);
+        return resolve(false);
       }
 
-      resolve(
+      return resolve(
         data.format.format_name !== undefined &&
           !data.format.format_name.includes('pipe') &&
           data.streams.some((stream) => stream.codec_type === 'video'),
