@@ -27,7 +27,7 @@
     "build:watch": "npm run clean && tsc --build tsconfig.json -w",
     "lint": "eslint . --ext .ts --ext .mts",
     "prettier": "prettier --config .prettierrc --write .",
-    "test:core": "c8 --all --src ./packages/core/src node --test --test-reporter spec ./packages/core/build/test/**/**/*.test.js",
+    "test:core": "c8 --all --src ./packages/core/src node --test --test-reporter spec ./packages/core/build/test",
     "test": "npm run build && npm run test:core",
     "cli": "npm run build && node ./packages/cli/build/index.js"
   },

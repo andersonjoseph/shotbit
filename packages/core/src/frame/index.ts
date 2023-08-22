@@ -14,7 +14,7 @@ export class Frame {
     this.fileName = path.basename(this.framePath);
 
     const result = this.fileName.match(/\d+/);
-    assert.ok(result);
+    assert.ok(result, 'filename must contain the frame number');
 
     this.number = Number(result[0]);
   }
