@@ -26,16 +26,16 @@ export class FramesHandler {
   }
 
   private async getFramesDirectory(): Promise<string> {
-    let cachedDirectory: string | undefined;
-
-    if (this.options.noCache) {
-      await this.removeCachedDirectory();
-    } else {
-      cachedDirectory = await this.findCachedDirectory();
+    let framesDirectory: string;
+    let cachedDirectory = await this.findCachedDirectory();
+    
+    if(cachedDirectory) {
+      framesDirectory = cachedDirectory;
     }
-
-    const framesDirectory =
-      cachedDirectory ?? (await this.createFramesDirectory());
+    else {
+      framesDirectory = await this.createFramesDirectory();
+      await ffmpeg.extractFrames(this.videoData.path, framesDirectory);
+    }
 
     return framesDirectory;
   }
@@ -53,6 +53,11 @@ export class FramesHandler {
   }
 
   private async findCachedDirectory(): Promise<string | undefined> {
+    if(this.options.noCache) {
+      await this.removeCachedDirectory();
+      return undefined;
+    }
+
     const directoryNames = await this.getCachedDirectoryNames();
 
     const cachedDirectory = directoryNames.find(
@@ -94,8 +99,6 @@ export class FramesHandler {
 
   async getFrames(): Promise<string[]> {
     const framesDirectory = await this.getFramesDirectory();
-
-    await ffmpeg.extractFrames(this.videoData.path, framesDirectory);
 
     const paths = (await readdir(framesDirectory))
       .map((framePath) => path.join(framesDirectory, framePath))
