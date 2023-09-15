@@ -32,6 +32,7 @@ describe('Frame', () => {
     const pixels = await frame.getPixels();
 
     assert.ok(pixels.length);
+    assert.strictEqual(pixels.length, 72);
   });
 
   test('similarity with another frame with the same DHash', async () => {
@@ -41,9 +42,9 @@ describe('Frame', () => {
     const frame1 = new Frame(framePath1);
     const frame2 = new Frame(framePath2);
 
-    const similarityTreshold = 1;
+    const similarityThreshold = 1;
 
-    const isSimilar = await frame1.isSimilarTo(frame2, similarityTreshold);
+    const isSimilar = await frame1.isSimilarTo(frame2, similarityThreshold);
 
     assert.ok(isSimilar);
   });
@@ -55,9 +56,9 @@ describe('Frame', () => {
     const frame1 = new Frame(framePath1);
     const frame2 = new Frame(framePath2);
 
-    const similarityTreshold = 1;
+    const similarityThreshold = 1;
 
-    const isSimilar = await frame1.isSimilarTo(frame2, similarityTreshold);
+    const isSimilar = await frame1.isSimilarTo(frame2, similarityThreshold);
 
     assert.strictEqual(isSimilar, false);
   });

@@ -54,13 +54,13 @@ export class Frame {
 
   async isSimilarTo(
     otherFrame: Frame,
-    similarityTreshold: number,
+    similarityThreshold: number,
   ): Promise<boolean> {
     const [thisHash, otherHash] = await Promise.all([
       this.getDHash(),
       otherFrame.getDHash(),
     ]);
 
-    return getHammingDistance(thisHash, otherHash) <= similarityTreshold;
+    return getHammingDistance(thisHash, otherHash) <= similarityThreshold;
   }
 }

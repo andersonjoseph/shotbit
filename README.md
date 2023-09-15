@@ -28,13 +28,13 @@ pnpm cli -i <video-file> -o <output-path>
 
 The following options are available:
 
-| Option               | Description                                                                                                                                                                                                                                                                                                 | Default  |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| -o, --output         | Save the extracted scene or shot to the specified file.                                                                                                                                                                                                                                                     | Required |
-| -i, --input          | Set the resolution of the extracted scene or shot.                                                                                                                                                                                                                                                          | Required |
-| --similarityTreshold | The similarity threshold parameter controls how similar the shots in a scene must be in order to be considered part of the same scene. A higher value will result in more scenes being extracted, while a lower value will result in fewer scenes being extracted. This parameter should be between 0 and 1 | 0        |
-| --minLength          | Set the minimum length of a shot in seconds. Shots shorter than the specified length will be ignored.                                                                                                                                                                                                       | 5        |
-| --noCache            | The no cache parameter controls whether or not the tool should use cached frames. If set, the tool will re-process all frames. This can be useful for debugging, but it can also slow down the process.                                                                                                     | false    |
+| Option                | Description                                                                                                                                                                                                                                                                                                 | Default  |
+|-----------------------| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| -o, --output          | Save the extracted scene or shot to the specified file.                                                                                                                                                                                                                                                     | Required |
+| -i, --input           | Set the resolution of the extracted scene or shot.                                                                                                                                                                                                                                                          | Required |
+| --similarityThreshold | The similarity threshold parameter controls how similar the shots in a scene must be in order to be considered part of the same scene. A higher value will result in more scenes being extracted, while a lower value will result in fewer scenes being extracted. This parameter should be between 0 and 1 | 0        |
+| --minLength           | Set the minimum length of a shot in seconds. Shots shorter than the specified length will be ignored.                                                                                                                                                                                                       | 5        |
+| --noCache             | The no cache parameter controls whether or not the tool should use cached frames. If set, the tool will re-process all frames. This can be useful for debugging, but it can also slow down the process.                                                                                                     | false    |
 
 ### Shotbit Class
 
@@ -48,13 +48,13 @@ The Shotbit constructor is used to create a new Shotbit instance to export shots
 
 #### `ShotbitOptions`
 
-| Option             | Type    | Description                                           | Default  |
-| ------------------ | ------- | ----------------------------------------------------- | -------- |
-| videoPath          | string  | The path to the input video file.                     | Required |
-| outputPath         | string  | The path to the output directory.                     | Required |
-| similarityTreshold | number  | The similarity threshold for shot detection.          | 0        |
-| minLength          | number  | The minimum length of a shot in seconds.              | 5        |
-| noCache            | boolean | Whether to disable caching of shot detection results. | false    |
+| Option              | Type    | Description                                           | Default  |
+|---------------------| ------- | ----------------------------------------------------- | -------- |
+| videoPath           | string  | The path to the input video file.                     | Required |
+| outputPath          | string  | The path to the output directory.                     | Required |
+| similarityThreshold | number  | The similarity threshold for shot detection.          | 0        |
+| minLength           | number  | The minimum length of a shot in seconds.              | 5        |
+| noCache             | boolean | Whether to disable caching of shot detection results. | false    |
 
 #### Example
 
@@ -64,7 +64,7 @@ import { Shotbit, ShotbitOptions } from 'shotbit';
 const options: ShotbitOptions = {
   videoPath: 'input.mp4',
   outputPath: 'output',
-  similarityTreshold: 0.5,
+  similarityThreshold: 0.5,
   minLength: 10,
   noCache: true,
 };
@@ -88,7 +88,6 @@ Here is a list of the events that the Shotbit class supports:
 
 | Event                     | Description                                                  |
 | ------------------------- | ------------------------------------------------------------ |
-| `started`                 | Shotbit process has started.                                 |
 | `finished`                | Shotbit process has finished running.                        |
 | `error`                   | An error has occurred.                                       |
 | `startedRetrievingFrames` | The process of retrieving frames from a video has begun.     |

@@ -3,7 +3,7 @@ import { strict as assert } from 'assert';
 export type CliOptions = {
   input: string;
   output: string;
-  similarityTreshold?: number;
+  similarityThreshold?: number;
   minLength?: number;
   noCache?: boolean;
 };
@@ -17,15 +17,15 @@ export function parseOptions(options: Record<string, unknown>): CliOptions {
   assert.ok(typeof options.output === 'string');
   const output = options.output;
 
-  let similarityTreshold: number | undefined;
-  if ('similarityTreshold' in options) {
-    assert.ok(typeof options.similarityTreshold === 'string');
+  let similarityThreshold: number | undefined;
+  if ('similarityThreshold' in options) {
+    assert.ok(typeof options.similarityThreshold === 'string');
 
-    similarityTreshold = Number(options.similarityTreshold);
+    similarityThreshold = Number(options.similarityThreshold);
     assert.notEqual(
-      isNaN(similarityTreshold),
+      isNaN(similarityThreshold),
       true,
-      '--similarityTreshold should be a valid number',
+      '--similarityThreshold should be a valid number',
     );
   }
 
@@ -51,7 +51,7 @@ export function parseOptions(options: Record<string, unknown>): CliOptions {
   return {
     input,
     output,
-    similarityTreshold,
+    similarityThreshold,
     minLength,
     noCache,
   };

@@ -63,7 +63,7 @@ export function assignDefined<
   return target as T & S;
 }
 
-export function mapSimilarityTreshold(parameterValue: number): number {
+export function mapSimilarityThreshold(parameterValue: number): number {
   assert.ok(
     parameterValue >= 0 && parameterValue <= 1,
     'value must be between 0 and 1',

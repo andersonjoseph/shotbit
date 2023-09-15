@@ -8,7 +8,7 @@ import {
   removeAllGeneratedVideos,
   isValidVideo,
   assignDefined,
-  mapSimilarityTreshold,
+  mapSimilarityThreshold,
   FramesHandler,
   createDirIfNotExists,
 } from './utils/index.js';
@@ -17,7 +17,7 @@ type RequiredShotbitOptions = Required<ShotbitOptions>;
 
 const defaultOptions: Omit<RequiredShotbitOptions, 'videoPath' | 'outputPath'> =
   {
-    similarityTreshold: 0,
+    similarityThreshold: 0,
     minLength: 5,
     noCache: false,
   };
@@ -49,8 +49,8 @@ export class Shotbit extends EventEmitter {
     );
 
     try {
-      this.options.similarityTreshold = mapSimilarityTreshold(
-        this.options.similarityTreshold,
+      this.options.similarityThreshold = mapSimilarityThreshold(
+        this.options.similarityThreshold,
       );
     } catch (err) {
       if (err instanceof Error) {
@@ -89,8 +89,6 @@ export class Shotbit extends EventEmitter {
       throw err;
     }
 
-    this.emit('started');
-
     await createDirIfNotExists(this.options.outputPath);
 
     this.emit('startedRetrievingFrames');
@@ -99,20 +97,20 @@ export class Shotbit extends EventEmitter {
 
     this.emit('framesRetrieved', framePaths);
 
-    const referenceFramePath = framePaths.shift();
+    const referenceFramePath = framePaths[0];
     assert.ok(referenceFramePath);
 
     let referenceFrame = new Frame(referenceFramePath);
 
     const shots: Shot[] = [];
 
-    for (let i = 0; i < framePaths.length; i++) {
+    for (let i = 1; i < framePaths.length; i++) {
       const currentFramePath = framePaths[i];
       const currentFrame = new Frame(currentFramePath);
 
       const frameIsInTheSameShot = await referenceFrame.isSimilarTo(
         currentFrame,
-        this.options.similarityTreshold,
+        this.options.similarityThreshold,
       );
 
       if (!frameIsInTheSameShot) {

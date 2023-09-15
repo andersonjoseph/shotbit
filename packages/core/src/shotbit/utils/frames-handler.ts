@@ -27,7 +27,7 @@ export class FramesHandler {
 
   private async getFramesDirectory(): Promise<string> {
     let framesDirectory: string;
-    let cachedDirectory = await this.findCachedDirectory();
+    const cachedDirectory = await this.findCachedDirectory();
     
     if(cachedDirectory) {
       framesDirectory = cachedDirectory;
@@ -89,7 +89,7 @@ export class FramesHandler {
     );
   }
 
-  async createFramesDirectory(): Promise<string> {
+  private async createFramesDirectory(): Promise<string> {
     const directoryName = `shotbit-${this.videoData.videoName}`;
     const framesDirectory = path.join(tmpdir(), directoryName);
     await mkdir(framesDirectory);
