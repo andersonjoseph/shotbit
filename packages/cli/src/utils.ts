@@ -51,7 +51,7 @@ export function parseOptions(options: Record<string, unknown>): CliOptions {
   return {
     input,
     output,
-    similarityThreshold: similarityThreshold,
+    similarityThreshold,
     minLength,
     noCache,
   };
