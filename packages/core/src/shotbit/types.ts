@@ -1,7 +1,7 @@
 export type ShotbitOptions = {
   videoPath: string;
   outputPath: string;
-  similarityTreshold?: number;
+  similarityThreshold?: number;
   minLength?: number;
   noCache?: boolean;
 };

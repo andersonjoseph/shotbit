@@ -42,9 +42,9 @@ describe('Frame', () => {
     const frame1 = new Frame(framePath1);
     const frame2 = new Frame(framePath2);
 
-    const similarityTreshold = 1;
+    const similarityThreshold = 1;
 
-    const isSimilar = await frame1.isSimilarTo(frame2, similarityTreshold);
+    const isSimilar = await frame1.isSimilarTo(frame2, similarityThreshold);
 
     assert.ok(isSimilar);
   });
@@ -56,9 +56,9 @@ describe('Frame', () => {
     const frame1 = new Frame(framePath1);
     const frame2 = new Frame(framePath2);
 
-    const similarityTreshold = 1;
+    const similarityThreshold = 1;
 
-    const isSimilar = await frame1.isSimilarTo(frame2, similarityTreshold);
+    const isSimilar = await frame1.isSimilarTo(frame2, similarityThreshold);
 
     assert.strictEqual(isSimilar, false);
   });

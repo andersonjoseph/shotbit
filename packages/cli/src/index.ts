@@ -13,7 +13,7 @@ const optionsSchema = {
     type: 'string',
     short: 'o',
   },
-  similarityTreshold: {
+  similarityThreshold: {
     type: 'string',
   },
   minLength: {
@@ -42,7 +42,7 @@ try {
 const shotbit = new Shotbit({
   videoPath: parsedOptions.input,
   outputPath: parsedOptions.output,
-  similarityTreshold: parsedOptions.similarityTreshold,
+  similarityThreshold: parsedOptions.similarityThreshold,
   minLength: parsedOptions.minLength,
   noCache: parsedOptions.noCache,
 });

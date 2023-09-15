@@ -8,7 +8,7 @@ import {
   removeAllGeneratedVideos,
   isValidVideo,
   assignDefined,
-  mapSimilarityTreshold,
+  mapSimilarityThreshold,
   FramesHandler,
   createDirIfNotExists,
 } from './utils/index.js';
@@ -17,7 +17,7 @@ type RequiredShotbitOptions = Required<ShotbitOptions>;
 
 const defaultOptions: Omit<RequiredShotbitOptions, 'videoPath' | 'outputPath'> =
   {
-    similarityTreshold: 0,
+    similarityThreshold: 0,
     minLength: 5,
     noCache: false,
   };
@@ -49,8 +49,8 @@ export class Shotbit extends EventEmitter {
     );
 
     try {
-      this.options.similarityTreshold = mapSimilarityTreshold(
-        this.options.similarityTreshold,
+      this.options.similarityThreshold = mapSimilarityThreshold(
+        this.options.similarityThreshold,
       );
     } catch (err) {
       if (err instanceof Error) {
@@ -110,7 +110,7 @@ export class Shotbit extends EventEmitter {
 
       const frameIsInTheSameShot = await referenceFrame.isSimilarTo(
         currentFrame,
-        this.options.similarityTreshold,
+        this.options.similarityThreshold,
       );
 
       if (!frameIsInTheSameShot) {

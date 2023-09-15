@@ -7,7 +7,7 @@ import {
   assignDefined,
   createDirIfNotExists,
   isValidVideo,
-  mapSimilarityTreshold,
+  mapSimilarityThreshold,
   removeAllGeneratedVideos,
 } from '../../../src/shotbit/utils/index';
 
@@ -17,9 +17,9 @@ const dirExists = async (path: string) =>
     .then(() => true)
     .catch(() => false);
 
-describe('mapSimilarityTreshold', () => {
+describe('mapSimilarityThreshold', () => {
   test('return the correct value for a value between 0 and 1', () => {
-    const actual = mapSimilarityTreshold(0.5);
+    const actual = mapSimilarityThreshold(0.5);
     const expected = 27.5;
 
     assert.strictEqual(actual, expected, 'actual should be equal to expected');
@@ -27,14 +27,14 @@ describe('mapSimilarityTreshold', () => {
 
   test('throw an error for a value less than 0', () => {
     assert.throws(
-      () => mapSimilarityTreshold(-0.5),
+      () => mapSimilarityThreshold(-0.5),
       /value must be between 0 and 1/,
     );
   });
 
   test('throw an error for a value greater than 1', () => {
     assert.throws(
-      () => mapSimilarityTreshold(1.5),
+      () => mapSimilarityThreshold(1.5),
       /value must be between 0 and 1/,
     );
   });
