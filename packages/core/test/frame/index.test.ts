@@ -32,6 +32,7 @@ describe('Frame', () => {
     const pixels = await frame.getPixels();
 
     assert.ok(pixels.length);
+    assert.strictEqual(pixels.length, 72);
   });
 
   test('similarity with another frame with the same DHash', async () => {
