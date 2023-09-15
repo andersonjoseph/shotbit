@@ -97,14 +97,14 @@ export class Shotbit extends EventEmitter {
 
     this.emit('framesRetrieved', framePaths);
 
-    const referenceFramePath = framePaths.shift();
+    const referenceFramePath = framePaths[0];
     assert.ok(referenceFramePath);
 
     let referenceFrame = new Frame(referenceFramePath);
 
     const shots: Shot[] = [];
 
-    for (let i = 0; i < framePaths.length; i++) {
+    for (let i = 1; i < framePaths.length; i++) {
       const currentFramePath = framePaths[i];
       const currentFrame = new Frame(currentFramePath);
 
