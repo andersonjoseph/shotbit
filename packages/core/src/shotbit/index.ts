@@ -89,8 +89,6 @@ export class Shotbit extends EventEmitter {
       throw err;
     }
 
-    this.emit('started');
-
     await createDirIfNotExists(this.options.outputPath);
 
     this.emit('startedRetrievingFrames');
