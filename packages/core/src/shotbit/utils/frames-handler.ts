@@ -27,7 +27,7 @@ export class FramesHandler {
 
   private async getFramesDirectory(): Promise<string> {
     let framesDirectory: string;
-    let cachedDirectory = await this.findCachedDirectory();
+    const cachedDirectory = await this.findCachedDirectory();
     
     if(cachedDirectory) {
       framesDirectory = cachedDirectory;
