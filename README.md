@@ -88,7 +88,6 @@ Here is a list of the events that the Shotbit class supports:
 
 | Event                     | Description                                                  |
 | ------------------------- | ------------------------------------------------------------ |
-| `started`                 | Shotbit process has started.                                 |
 | `finished`                | Shotbit process has finished running.                        |
 | `error`                   | An error has occurred.                                       |
 | `startedRetrievingFrames` | The process of retrieving frames from a video has begun.     |
